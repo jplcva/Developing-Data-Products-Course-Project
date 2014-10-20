@@ -1,0 +1,124 @@
+---
+title       : Developing Data Products Course Project
+subtitle    : Random Distributions
+author      : jplcva
+job         : Data Science Specialization
+logo        : jplcva.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [bootstrap, quiz, shiny, interactive]
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Concept
+
+1. Develop a Shiny application hosted on [ShinyApps.io](https://www.shinyapps.io/) from RStudio
+2. Publish the Shiny application on [ShinyApps.io Account](https://jplcva.shinyapps.io/Developing-Data-Products-Course-Project/)
+3. Illustrate random distributions using a subset of R random generating numbers functions
+4. Allow data entry of parameters from the user interface to select the distribution
+5. Retrieve generated plots and summaries from the server
+
+--- .class #id 
+
+
+## User Interface
+
+The user interface where data input is required, is composed of 5 widgets:
+
+* **Choose distribution**: 12 different R random generating numbers distribution functions.
+* **Number of observations**: the number of numbers to sample.
+* **Set seed**: specify whether a seed value to be entered in the next field.
+* `<seed value>`: the seed value.
+* **Apply**: enter the required values, before hitting `Apply` to get the results.
+
+```{r opts.label='shiny'}
+slidifyUI(
+        sidebarPanel(
+                selectInput(inputId = "rDist", label = "Choose distribution",
+                            choices = c("Bernouilli",
+                                        "Binomial",
+                                        "Chi-Squared",
+                                        "Exponential",
+                                        "Geometric",
+                                        "Logistic",
+                                        "Log Normal",
+                                        "Negative Binomial",
+                                        "Normal",
+                                        "Poisson",
+                                        "Student t",
+                                        "Uniform")),
+                numericInput(inputId = "nObs", label = "Number of observations:",
+                             value = 1000, min = 1, max = 100000, step = 1),
+                checkboxInput(inputId = "setSeed", label = "Set seed", value = FALSE),
+                numericInput(inputId = "seed", label = "", value = 0),
+                actionButton(inputId = "applyButton", label = "Apply")
+        ),
+        mainPanel(
+                tabsetPanel(id = "tabset", type = "tabs", selected = NULL,
+                            tabPanel("Plot"),
+                            tabPanel("Summary"),
+                            tabPanel("Model"),
+                            tabPanel("About")
+                )
+        )
+)
+```
+
+--- .class #id
+
+
+## Server
+
+```{r, echo=FALSE, results='asis'}
+rDist <- c("Bernouilli",
+           "Binomial",
+           "Chi-Squared",
+           "Exponential",
+           "Geometric",
+           "Logistic",
+           "Log Normal",
+           "Negative Binomial",
+           "Normal",
+           "Poisson",
+           "Student t",
+           "Uniform")
+calls <- c("rbinom(n = nObs, size = 1, prob = prob)",
+           "rbinom(n = nObs, size = size, prob = prob)",
+           "rchisq(n = nObs, df = df)",
+           "rexp(n = nObs)",
+           "rgeom(n = nObs, prob = prob)",
+           "rlogis(n = nObs)",
+           "rlnorm(n = nObs)",
+           "rnbinom(n = nObs, size = size, prob = prob)",
+           "rnorm(n = nObs, mean = mean, sd = sd)",
+           "rpois(n = nObs, lambda = lambda)",
+           "rt(n = nObs, df = df)",
+           "runif(n = nObs)")
+df <- as.data.frame(rDist)
+df <- cbind(df, calls)
+colnames(df) <- c("Distribution", "R Call")
+kable(df, format = "html")
+```
+
+--- .class #id
+
+
+## Example
+
+```{r echo=FALSE, results='asis', fig.align='center', fig.height=7, fig.width=10}
+require(ggplot2)
+nObs <- 1000
+mean <- round(runif(1, min = -1 * nObs, max = nObs), 2)
+sd <- round(runif(1, min = 1, max = 10), 2)
+x <- rnorm(n = nObs, mean = mean, sd = sd)
+data <- as.data.frame(x)
+g <- ggplot(data, aes(x = x)) +
+        geom_histogram(aes(y = ..density.., fill = ..density..), binwidth = 0.1) +
+        geom_density(colour = "orangered") +
+        geom_vline(xintercept = mean(data$x), colour = "orangered", linetype = "solid") +
+        ggtitle(paste(rDist[9], "distribution with", nObs, "observations, mean", mean, "and sd", sd)) +
+        theme_bw()
+print(g)
+```
