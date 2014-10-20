@@ -1,3 +1,4 @@
+library(markdown)
 library(shiny)
 
 shinyUI(pageWithSidebar(
@@ -26,7 +27,8 @@ shinyUI(pageWithSidebar(
                 tabsetPanel(id = "tabset", type = "tabs", selected = NULL,
                             tabPanel("Plot", plotOutput("distHist")),
                             tabPanel("Summary", verbatimTextOutput("summary")),
-                            tabPanel("Model", plotOutput("scatterWithModel"))
+                            tabPanel("Model", plotOutput("scatterWithModel")),
+                            tabPanel("About", includeMarkdown("README.md"))
                 )
         )
 ))
