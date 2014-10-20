@@ -14,7 +14,7 @@ The user interface where data input is required, is composed of 5 widgets descri
 * **Choose distribution**: a shiny `Select box` allowing to choose between 12 different R random generating numbers distribution functions.
 * **Number of observations**: a shiny `Numeric input` allowing to enter the number of numbers to sample, This number is initialized to 1,000 and accepts values between 1 and 100,000, with an increment of 1.
 * **Set seed**: a shiny `Single checkbox` allowing to specify whether a seed value to be entered in the next field is to be taken into account in the random generating process.
-* **`<seed value>`**: a shiny `Numeric input` without label, associated to the shiny `Single checkbox`, allowing to enter the seed value. This value is initialized to 0, is incremented by 1 with no lower or upper limits.
+* `<seed value>`: a shiny `Numeric input` without label, associated to the shiny `Single checkbox`, allowing to enter the seed value. This value is initialized to 0, is incremented by 1 with no lower or upper limits.
 * **Apply**: a shiny `Action button` allowing to restrict the reactivity of the page, in order for the user to enter the required values for the random distribution to be generated, before hitting `Apply`to get the results.
 
 ---
