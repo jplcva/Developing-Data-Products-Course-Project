@@ -107,8 +107,8 @@ kable(df, format = "html")
 
 ## Example
 
-```{r echo=FALSE, results='asis', fig.align='center', fig.height=7, fig.width=10}
-require(ggplot2)
+```{r echo=FALSE, warning=FALSE, results='asis', fig.align='center', fig.height=7, fig.width=10}
+library(ggplot2)
 nObs <- 1000
 mean <- round(runif(1, min = -1 * nObs, max = nObs), 2)
 sd <- round(runif(1, min = 1, max = 10), 2)
@@ -120,5 +120,5 @@ g <- ggplot(data, aes(x = x)) +
         geom_vline(xintercept = mean(data$x), colour = "orangered", linetype = "solid") +
         ggtitle(paste(rDist[9], "distribution with", nObs, "observations, mean", mean, "and sd", sd)) +
         theme_bw()
-print(g)
+suppressWarnings(print(g))
 ```
