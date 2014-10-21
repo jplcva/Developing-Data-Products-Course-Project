@@ -4,6 +4,10 @@ library(shiny)
 title <- ""
 
 genDistHist <- function(rDist, nObs, setSeed, seed) {
+        if (nObs < 1 || nObs > 100000) {
+                rDist <- "Normal"
+                nObs <- 1000
+        }
         if (setSeed == TRUE) {
                 set.seed(seed)
         }
@@ -74,10 +78,15 @@ genDistHist <- function(rDist, nObs, setSeed, seed) {
 }
 
 plotDistHist <- function(x) {
+        if (length(x) <= 1) {
+                binwidth <- max(0.1, diff(range(x)) / (30 * log10(length(x) + 1)))
+        }
+        else {
+                binwidth <- max(0.1, diff(range(x)) / (30 * log10(length(x))))
+        }
         data <- as.data.frame(x)
         g <- ggplot(data, aes(x = x)) +
-                geom_histogram(aes(y = ..density.., fill = ..density..),
-                               binwidth = max(0.1, diff(range(x)) / (30 * log10(length(x))))) +
+                geom_histogram(aes(y = ..density.., fill = ..density..), binwidth = binwidth) +
                 geom_density(colour = "orangered") +
                 geom_vline(xintercept = mean(data$x), colour = "orangered", linetype = "solid") +
                 ggtitle(title) +
