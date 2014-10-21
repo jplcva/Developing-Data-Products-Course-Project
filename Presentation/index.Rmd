@@ -115,7 +115,8 @@ sd <- round(runif(1, min = 1, max = 10), 2)
 x <- rnorm(n = nObs, mean = mean, sd = sd)
 data <- as.data.frame(x)
 g <- ggplot(data, aes(x = x)) +
-        geom_histogram(aes(y = ..density.., fill = ..density..), binwidth = 0.1) +
+        geom_histogram(aes(y = ..density.., fill = ..density..),
+                       binwidth = max(0.1, diff(range(x)) / (30 * log10(length(x))))) +
         geom_density(colour = "orangered") +
         geom_vline(xintercept = mean(data$x), colour = "orangered", linetype = "solid") +
         ggtitle(paste(rDist[9], "distribution with", nObs, "observations, mean", mean, "and sd", sd)) +

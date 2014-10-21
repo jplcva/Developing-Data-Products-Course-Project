@@ -65,23 +65,23 @@ The user interface where data input is required, is composed of 5 widgets:
     <div class="tabbable tabs-above">
       <ul class="nav nav-tabs shiny-tab-input" id="tabset">
         <li class="active">
-          <a href="#tab-7710-1" data-toggle="tab">Plot</a>
+          <a href="#tab-4485-1" data-toggle="tab">Plot</a>
         </li>
         <li>
-          <a href="#tab-7710-2" data-toggle="tab">Summary</a>
+          <a href="#tab-4485-2" data-toggle="tab">Summary</a>
         </li>
         <li>
-          <a href="#tab-7710-3" data-toggle="tab">Model</a>
+          <a href="#tab-4485-3" data-toggle="tab">Model</a>
         </li>
         <li>
-          <a href="#tab-7710-4" data-toggle="tab">About</a>
+          <a href="#tab-4485-4" data-toggle="tab">About</a>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="tab-7710-1"></div>
-        <div class="tab-pane" id="tab-7710-2"></div>
-        <div class="tab-pane" id="tab-7710-3"></div>
-        <div class="tab-pane" id="tab-7710-4"></div>
+        <div class="tab-pane active" id="tab-4485-1"></div>
+        <div class="tab-pane" id="tab-4485-2"></div>
+        <div class="tab-pane" id="tab-4485-3"></div>
+        <div class="tab-pane" id="tab-4485-4"></div>
       </div>
     </div>
   </div>
