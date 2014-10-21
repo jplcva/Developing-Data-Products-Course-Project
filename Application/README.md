@@ -40,10 +40,18 @@ The available random distributions functions are:
 ---
 
 
+### Limitations
+
+In case the entered number of observations is not within the accepted range [1:100000], the server calculations are performed for a **Normal** distribution with 1,000 observations.
+
+---
+
+
 ### Results
 
-The generated results are displayed on the right side of the shiny form, in a tabset panel constituted of 3 tab panels:
+The generated results are displayed on the right side of the shiny form, in a tabset panel constituted of 4 tab panels:
 
 * **Plot**: This tab panel shows the `ggplot2` histogram of the randomly generated numbers. The graph's title displays the parameters used for the numbers' generation.
 * **Summary**: This tab panel shows the summary of the generated data sample, with a call to `summary()`.
 * **Model**: This tab panel shows a `ggplot2` scatter plot of the randomly generated numbers according to their index on X-axis, and value on the Y-axis. The plot includes a smoother with a call to `stat_smooth()` and the `method` parameter set to `auto`, in order to fit a generalized additive model (GAM) to the data.
+* **About**: This tab panel display this README.md file.
