@@ -76,7 +76,8 @@ genDistHist <- function(rDist, nObs, setSeed, seed) {
 plotDistHist <- function(x) {
         data <- as.data.frame(x)
         g <- ggplot(data, aes(x = x)) +
-                geom_histogram(aes(y = ..density.., fill = ..density..), binwidth = 0.1) +
+                geom_histogram(aes(y = ..density.., fill = ..density..),
+                               binwidth = max(0.1, diff(range(x)) / (30 * log10(length(x))))) +
                 geom_density(colour = "orangered") +
                 geom_vline(xintercept = mean(data$x), colour = "orangered", linetype = "solid") +
                 ggtitle(title) +
